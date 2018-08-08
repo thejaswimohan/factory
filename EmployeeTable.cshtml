@@ -1,0 +1,53 @@
+﻿@{
+    Layout = null;
+}
+<input type="text" align="right" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+<table id="myTable">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Salary</th>
+        <th colspan="2">Action</th>
+    </tr>
+    <tr ng-repeat="user in users | orderBy : 'id'" ng-class-even="'even'" ng-class-odd="'odd'">
+        <td><a href="#"  data-toggle="modal" data-target="#examModal" ng-click="details(user)">{{user.id}}</a></td>
+        <td>{{user.name}}</td>
+        <td>{{user.department}}</td>
+        <td>{{user.salary}}</td>
+        <td><button ng-click="getuserdata(user.id)" type="button" data-toggle="modal"><img src="~/Images/Update.jpg" /></button></td>
+        <td><button confirmed-click="deleteuser(user.id)" ng-confirm-click="Would you like to delete {{user.name}} ? " type="button" ><img src="~/Images/delete.jpg" /></button></td>
+    </tr>
+</table>
+
+<div class="modal fade" id="examModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="exampleModalLabel">Employee Details Page</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form name="myform">
+                <div class="modal-body">
+                    <div class="row navbar-header nav-divider container-fluid">
+                        <ul class="nav nav-pills">
+                            <li ng-class="{'active' : isSelected(1)}"><a href="#!/Personal" ng-click="seltab(1)"><h3>Personal</h3></a></li>
+                            <li ng-class="{'active' : isSelected(2)}"><a href="#!/Qualification" ng-click="seltab(2)"><h3>Qualification</h3></a></li>
+                            <li ng-class="{'active' : isSelected(3)}"><a href="#!/Communication" ng-click="seltab(3)"><h3>Communication</h3></a></li>
+                        </ul>
+                    </div>
+                    <div ng-view>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    @*<button type="submit" class="btn btn-primary" ng-click="updateUser(getuserdatas[0])">Save</button>*@
+                    @*<input type="submit" ng-click="updateUser(getuserdatas[0])">*@
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
